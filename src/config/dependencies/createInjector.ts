@@ -1,4 +1,3 @@
-
 import { getCustomRepository } from "typeorm";
 import Container from "typedi";
 import { UserRepository } from "../../repositories/UserRepository";
@@ -13,9 +12,8 @@ import "../../services/UserService";
 import "../../services/EnderecoService";
 
 // inicializa clientes
-import "../../clients/CepClient"
+import "../../clients/CepClient";
 import "../../infra/http/AxiosHttpClient";
-
 
 const createDependencyInjector = () => {
   Container.set("UserRepository", getCustomRepository(UserRepository));
