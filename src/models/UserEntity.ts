@@ -1,25 +1,26 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, OneToMany, Column } from "typeorm";
+import { Action } from "./ActionEntity";
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false, length: 25 })
+  @Column({ length: 25 })
   firstName: string;
 
-  @Column({ nullable: false, length: 25 })
+  @Column({ length: 25 })
   lastName: string;
 
-  @Column({ nullable: false })
-  age: number;
-
-  @Column({ nullable: false, length: 50 })
+  @Column({ length: 50 })
   cargo: string;
 
-  @Column({ nullable: false, length: 20 })
+  @Column({ length: 20 })
   phoneNumber: string;
 
-  @Column({ nullable: false, length: 80 })
+  @Column({ length: 80 })
   email: string;
+
+  @OneToMany(() => Action, (action) => action.user)
+  actions: Action[];
 }
