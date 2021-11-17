@@ -1,14 +1,7 @@
 import { Email } from "models/EmailEntity";
 import { Inject, Service } from "typedi";
 import { EmailDTO, UpdateEmailDTO } from "../@types/dto/EmailDto";
-
-interface IEmailService {
-  create(emailDto: EmailDTO): Promise<Email>;
-  getById(id: number): Promise<Email>;
-  getAll(): Promise<Email[]>;
-  update(emailDto: UpdateEmailDTO): Promise<Email>;
-  delete(email: EmailDTO): Promise<Email>;
-}
+import { IEmailService } from "../@types/services/IEmailService";
 
 /**
  * tipo de emailRepository está any porque o repositório ainda não passou em review
