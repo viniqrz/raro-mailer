@@ -1,12 +1,6 @@
 import { Address } from "models/AddressEntity";
 import { EntityRepository, Repository } from "typeorm";
-
-interface IAddressRepository {
-  save(address: Address): Promise<Address>;
-  findAll(): Promise<Address[]>;
-  findById(id: number): Promise<Address>;
-  remove(address: Address): Promise<Address>;
-}
+import { IAddressRepository } from "../@types/repositories/IAddressRepository";
 
 @EntityRepository(Address)
 export class AddressRepository
