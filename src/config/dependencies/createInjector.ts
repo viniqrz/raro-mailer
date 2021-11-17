@@ -1,6 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import Container from "typedi";
 import { UserRepository } from "../../repositories/UserRepository";
+import { ActionRepository } from "repositories/ActionRepository";
 
 // inicializador de dependências:
 // inicializa controllers
@@ -17,6 +18,7 @@ import "../../infra/http/AxiosHttpClient";
 
 const createDependencyInjector = () => {
   Container.set("UserRepository", getCustomRepository(UserRepository));
+  Container.set("ActionRepository", getCustomRepository(ActionRepository));
 };
 
 export default createDependencyInjector;
