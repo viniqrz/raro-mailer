@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -22,6 +23,7 @@ export class Action {
   actionDate: Date;
 
   @OneToOne(() => Email, (email) => email.action)
+  @JoinColumn()
   email: Email;
 
   @ManyToOne(() => Actor, (actor) => actor.actions)
