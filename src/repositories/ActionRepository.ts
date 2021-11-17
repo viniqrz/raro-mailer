@@ -1,12 +1,6 @@
 import { Action } from "models/ActionEntity";
 import { EntityRepository, Repository } from "typeorm";
-
-interface IActionRepository {
-  save(action: Action): Promise<Action>;
-  findAll(): Promise<Action[]>;
-  findById(id: number): Promise<Action>;
-  remove(action: Action): Promise<Action>;
-}
+import { IActionRepository } from "../@types/repositories/IActionRepository";
 
 @EntityRepository(Action)
 export class ActionRepository
