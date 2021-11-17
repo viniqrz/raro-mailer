@@ -1,9 +1,13 @@
 import { UserDTO } from "../dto/UserDto";
 import { User } from "../../models/UserEntity";
 
-export interface IUserRepository {
-  find(): Promise<User[]>;
-  findOne(id: number): Promise<User>;
-  save(userDto: UserDTO): Promise<User>;
-  remove(entities: User | User[]): Promise<User[]>;
+
+export interface IUserRepository{
+
+  save(user:User):Promise<User>;
+  remove(user:User);
+  findAll():Promise<User[]>;
+  findById(id:number):Promise<User>;
+  findByName(firstName:string, lastName:string);
+
 }
