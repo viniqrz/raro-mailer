@@ -31,9 +31,9 @@ export class EmailService implements IEmailService {
   }
 
   public async update(emailDto: UpdateEmailDTO): Promise<Email> {
-    const curEmail = await this.emailRepository.findById(emailDto.id);
+    const currentEmail = await this.emailRepository.findById(emailDto.id);
 
-    const newEmail = { ...curEmail, ...emailDto };
+    const newEmail = { ...currentEmail, ...emailDto };
 
     return await this.emailRepository.save(newEmail);
   }
@@ -42,10 +42,10 @@ export class EmailService implements IEmailService {
     return await this.emailRepository.remove(email);
   }
 
-  private emailFactory(emailDto): Email {
+  private emailFactory(emailDto: EmailDTO): Email {
     const email = new Email();
 
-    Object.keys(emailDto).forEach((k) => (email[k] = emailDto[k]));
+    Object.keys(emailDto).forEach((key) => (email[key] = emailDto[key]));
 
     return email;
   }
