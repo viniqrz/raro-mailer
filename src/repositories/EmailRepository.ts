@@ -1,12 +1,6 @@
 import { Email } from "../models/EmailEntity";
 import { EntityRepository, Repository } from "typeorm";
-
-interface IEmailRepository {
-  save(email: Email): Promise<Email>;
-  findAll(): Promise<Email[]>;
-  findById(id: number): Promise<Email>;
-  remove(email: Email): Promise<Email>;
-}
+import { IEmailRepository } from "../@types/services/IEmailRepository";
 
 @EntityRepository(Email)
 export class EmailRepository
