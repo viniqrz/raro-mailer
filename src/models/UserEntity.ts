@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany, Column } from "typeorm";
-import { Action } from "./ActionEntity";
+import { History } from "./HistoryEntity";
 
 @Entity()
 export class User {
@@ -21,6 +21,6 @@ export class User {
   @Column({ length: 80 })
   email: string;
 
-  @OneToMany(() => Action, (action) => action.user)
-  actions: Action[];
+  @OneToMany(() => History, (history) => history.createdBy)
+  history: History[];
 }
