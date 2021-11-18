@@ -11,7 +11,7 @@ implements IEmployeeRepository {
   public async findAll(): Promise<Employee[]> {
    return await this.find();
   }
-  public async findByid(id: number): Promise<Employee> {
+  public async findById(id: number): Promise<Employee> {
    return await this.findOne(id);
   }
 
