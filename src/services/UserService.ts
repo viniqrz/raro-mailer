@@ -7,11 +7,11 @@ import { IUserRepository } from "../@types/repositories/IUserRepository";
 export class UserService implements IUserService {
   constructor(@Inject('UserRepository') private userRepository: IUserRepository) { }
 
-  async findAll() {
+  async getAll() {
     return this.userRepository.findAll();
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     return this.userRepository.findById(id);
   }
 
