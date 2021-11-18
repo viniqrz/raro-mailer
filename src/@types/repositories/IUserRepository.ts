@@ -1,6 +1,4 @@
-import { UserDTO } from "../dto/UserDto";
 import { User } from "../../models/UserEntity";
-
 
 export interface IUserRepository{
   save(user:User):Promise<User>;

@@ -2,7 +2,7 @@ import { Actor } from "models/ActorEntity";
 import { EntityRepository, Repository } from "typeorm";
 import { IActorRepository } from "../@types/repositories/IActorRepository";
 
-@EntityRepository(ActorRepository)
+@EntityRepository(Actor)
 export class ActorRepository
   extends Repository<Actor>
   implements IActorRepository
@@ -14,3 +14,4 @@ export class ActorRepository
     return await this.findOne(id);
   }
 }
+
