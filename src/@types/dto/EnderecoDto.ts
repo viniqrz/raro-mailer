@@ -1,4 +1,4 @@
-export interface AddressDto {
+export interface EnderecoDto {
   cep: string;
   logradouro: string;
   complemento: string;

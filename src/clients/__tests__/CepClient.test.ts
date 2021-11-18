@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 import { Response } from '../../infra/http/types/Response';
 import { AxiosHttpClient } from '../../infra/http/AxiosHttpClient';
-import { AddressDto } from '../../@types/dto/AddressDto';
+import { EnderecoDto } from '../../@types/dto/EnderecoDto';
 import { HttpClient } from '../../infra/http/types/HttpClient';
 import { CepClient } from '../CepClient';
 import { CepNaoEncontrado } from '../../@types/errors/CepNaoEncontrado';
@@ -14,12 +14,12 @@ const httpSuccessfullResponseFactory = <T>(data: T): Response<T> => ({
 });
 
 describe('CepClient', () => {
-  let address: AddressDto;
+  let endereco: EnderecoDto;
   let httpClient: HttpClient;
 
   beforeEach(() => {
     httpClient = new AxiosHttpClient();
-    address = {
+    endereco = {
       cep: faker.address.zipCode(),
       logradouro: faker.address.streetAddress(),
       complemento: faker.lorem.word(),
@@ -36,13 +36,13 @@ describe('CepClient', () => {
 
   it('deve retornar dados do cep encontrados com sucesso.', async () => {
     const cep = faker.address.zipCode();
-    const resultadoEsperado = httpSuccessfullResponseFactory(address);
+    const resultadoEsperado = httpSuccessfullResponseFactory(endereco);
     jest.spyOn(httpClient, 'get').mockResolvedValue(resultadoEsperado);
 
     const cepClient = new CepClient(httpClient);
-    const response = await cepClient.getAddressByCEP(cep);
+    const response = await cepClient.buscaEnderecoPorCEP(cep);
 
-    expect(response).toBe(address);
+    expect(response).toBe(endereco);
     expect(httpClient.get).toHaveBeenCalledWith(expect.stringMatching(new RegExp(cep)));
   });
 
@@ -53,7 +53,7 @@ describe('CepClient', () => {
     jest.spyOn(httpClient, 'get').mockResolvedValue(resultadoEsperado);
 
     const cepClient = new CepClient(httpClient);
-    await expect(cepClient.getAddressByCEP(cep))
+    await expect(cepClient.buscaEnderecoPorCEP(cep))
       .rejects
       .toThrow(new CepNaoEncontrado());
   });

@@ -1,5 +1,5 @@
-import { AddressDto } from "../dto/AddressDto";
+import { EnderecoDto } from "../dto/EnderecoDto";
 
 export interface ICepClient {
-  getAddressByCEP(cep: string): Promise<AddressDto>;
+  buscaEnderecoPorCEP(cep: string): Promise<EnderecoDto>;
 }

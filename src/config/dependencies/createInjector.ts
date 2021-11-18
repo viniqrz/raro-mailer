@@ -10,11 +10,11 @@ import { ActionRepository } from "repositories/ActionRepository";
 // inicializador de dependências:
 // inicializa controllers
 import "../../controllers/UserController";
-import "../../controllers/AddressController";
+import "../../controllers/EnderecoController";
 
 // inicializa services
 import "../../services/UserService";
-import "../../services/AddressService";
+import "../../services/EnderecoService";
 
 // inicializa clientes
 import "../../clients/CepClient";
