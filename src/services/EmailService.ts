@@ -1,14 +1,14 @@
+import { IEmailRepository } from "../@types/services/IEmailRepository";
 import { Email } from "models/EmailEntity";
 import { Inject, Service } from "typedi";
 import { EmailDTO, UpdateEmailDTO } from "../@types/dto/EmailDto";
 import { IEmailService } from "../@types/services/IEmailService";
 
-/**
- * tipo de emailRepository está any porque o repositório ainda não passou em review
- */
 @Service("EmailService")
 export class EmailService implements IEmailService {
-  constructor(@Inject("EmailRepository") private emailRepository: any) {}
+  constructor(
+    @Inject("EmailRepository") private emailRepository: IEmailRepository
+  ) {}
 
   public async create(emailDto: EmailDTO): Promise<Email> {
     try {
@@ -39,7 +39,7 @@ export class EmailService implements IEmailService {
   }
 
   public async delete(email: EmailDTO): Promise<Email> {
-    return await this.emailRepository.remove(email);
+    return await this.emailRepository.remove({ ...email } as Email);
   }
 
   private emailFactory(emailDto: EmailDTO): Email {
