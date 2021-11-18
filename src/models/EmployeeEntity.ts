@@ -9,6 +9,7 @@ import {
 import { Action } from "./ActionEntity";
 import { Actor } from "./ActorEntity";
 import { Address } from "./AddressEntity";
+import { History } from "./HistoryEntity";
 
 @Entity()
 export class Employee {
@@ -46,4 +47,7 @@ export class Employee {
 
   @OneToMany(() => Action, (action) => action.employee)
   actions: Action[];
+
+  @OneToMany(() => History, (history) => history.employee)
+  history: History[];
 }

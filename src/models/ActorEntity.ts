@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Action } from "./ActionEntity";
 import { Employee } from "./EmployeeEntity";
+import { History } from "./HistoryEntity";
 
 @Entity()
 export class Actor {
@@ -34,4 +35,7 @@ export class Actor {
 
   @OneToMany(() => Action, (action) => action.actor)
   actions: Action[];
+
+  @OneToMany(() => History, (history) => history.actor)
+  history: History[];
 }

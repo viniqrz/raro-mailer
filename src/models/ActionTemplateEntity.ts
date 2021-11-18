@@ -1,18 +1,16 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  JoinColumn,
 } from "typeorm";
 
-import { Actor } from "./ActorEntity";
 import { Email } from "./EmailEntity";
-import { Employee } from "./EmployeeEntity";
+import { Scheme } from "./SchemeEntity";
 
 @Entity()
-export class Action {
+export class ActionTemplate {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -23,9 +21,6 @@ export class Action {
   @JoinColumn()
   email: Email;
 
-  @ManyToOne(() => Actor, (actor) => actor.actions)
-  actor: Actor;
-
-  @ManyToOne(() => Employee, (employee) => employee.actions)
-  employee: Employee;
+  @OneToOne(() => Scheme, (scheme) => scheme.actionTemplates)
+  scheme: Scheme;
 }
