@@ -1,9 +1,9 @@
 import * as faker from 'faker';
 import { CepClient } from '../../clients/CepClient';
-import { EnderecoService } from '../../services/EnderecoService';
-import { EnderecoDto } from '../../@types/dto/EnderecoDto';
+import { AddressService } from '../AddressService';
+import { AddressDto } from '../../@types/dto/AddressDto';
 
-const resultadoApiCepFactory = (): EnderecoDto => ({
+const resultadoApiCepFactory = (): AddressDto => ({
   cep: faker.address.zipCode(),
   logradouro: faker.lorem.sentence(),
   complemento: faker.lorem.sentence(),
@@ -16,9 +16,9 @@ const resultadoApiCepFactory = (): EnderecoDto => ({
   siafi: faker.lorem.sentence(),
 });
 
-describe('EnderecoService', () => {
+describe('AddressService', () => {
   let cepClient: CepClient;
-  let enderecoService: EnderecoService;
+  let addressService: AddressService;
 
   const oldEnv = process.env;
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('EnderecoService', () => {
 
   beforeEach(() => {
     cepClient = new CepClient(null);
-    enderecoService = new EnderecoService(
+    addressService = new AddressService(
       cepClient
     )
   })
@@ -40,12 +40,12 @@ describe('EnderecoService', () => {
   beforeEach(jest.clearAllMocks);
 
   it('deve buscar um endereço através do CEP', async () => {
-    const endereco: EnderecoDto = resultadoApiCepFactory();
-    jest.spyOn(cepClient, 'buscaEnderecoPorCEP').mockResolvedValue(endereco);
+    const address: AddressDto = resultadoApiCepFactory();
+    jest.spyOn(cepClient, 'getAddressByCEP').mockResolvedValue(address);
 
     const cep = faker.address.zipCode();
-    await enderecoService.buscaPorCep(cep);
+    await addressService.getByCep(cep);
 
-    expect(cepClient.buscaEnderecoPorCEP).toHaveBeenCalledWith(cep);
+    expect(cepClient.getAddressByCEP).toHaveBeenCalledWith(cep);
   });
 });
