@@ -14,3 +14,9 @@ export type UpdateEmailDTO = {
   address?: string;
   sendDate?: Date;
 };
+
+export type EmailData = {
+  to: string;
+  subject: string;
+  body: string;
+};
