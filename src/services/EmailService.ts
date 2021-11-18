@@ -1,4 +1,4 @@
-import { IEmailRepository } from "../@types/services/IEmailRepository";
+import { IEmailRepository } from "../@types/repositories/IEmailRepository";
 import { Email } from "models/EmailEntity";
 import { Inject, Service } from "typedi";
 import { EmailDTO, UpdateEmailDTO } from "../@types/dto/EmailDto";
