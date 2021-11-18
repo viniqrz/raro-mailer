@@ -1,6 +1,6 @@
 import { Email } from "../models/EmailEntity";
 import { EntityRepository, Repository } from "typeorm";
-import { IEmailRepository } from "../@types/services/IEmailRepository";
+import { IEmailRepository } from "../@types/repositories/IEmailRepository";
 
 @EntityRepository(Email)
 export class EmailRepository
