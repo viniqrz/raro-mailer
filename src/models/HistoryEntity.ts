@@ -20,7 +20,7 @@ export class History {
   @JoinColumn()
   scheme: Scheme;
 
-  @ManyToOne(() => Actor, (actor) => actor.history)
+  @ManyToOne(() => Actor, (actor) => actor.history, { nullable: true })
   actor: Actor;
 
   @ManyToOne(() => Employee, (employee) => employee.history)

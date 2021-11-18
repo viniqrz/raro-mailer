@@ -5,6 +5,6 @@ export interface IEmailService {
   create(emailDto: EmailDTO): Promise<Email>;
   getById(id: number): Promise<Email>;
   getAll(): Promise<Email[]>;
-  update(emailDto: UpdateEmailDTO): Promise<Email>;
-  delete(email: EmailDTO): Promise<Email>;
+  update(id: number, emailDto: UpdateEmailDTO): Promise<Email>;
+  delete(id: number): Promise<Email>;
 }

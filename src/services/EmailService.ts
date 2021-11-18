@@ -30,16 +30,16 @@ export class EmailService implements IEmailService {
     return await this.emailRepository.findById(id);
   }
 
-  public async update(emailDto: UpdateEmailDTO): Promise<Email> {
-    const currentEmail = await this.emailRepository.findById(emailDto.id);
+  public async update(id: number, emailDto: UpdateEmailDTO): Promise<Email> {
+    const currentEmail = await this.emailRepository.findById(id);
 
     const newEmail = { ...currentEmail, ...emailDto };
 
     return await this.emailRepository.save(newEmail);
   }
 
-  public async delete(email: EmailDTO): Promise<Email> {
-    return await this.emailRepository.remove({ ...email } as Email);
+  public async delete(id: number): Promise<Email> {
+    return await this.emailRepository.remove({ id } as Email);
   }
 
   private emailFactory(emailDto: EmailDTO): Email {
