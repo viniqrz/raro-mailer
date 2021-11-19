@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import Container from 'typedi';
 const router = Router();
-import { EnderecoController  } from '../controllers/EnderecoController';
+import { AddressController  } from '../controllers/AddressController';
 
-const getController = (): EnderecoController => {
-  return Container.get<EnderecoController>('EnderecoController');
+const getController = (): AddressController => {
+  return Container.get<AddressController>('AddressController');
 };
 
 const crateRouter = () => {

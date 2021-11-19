@@ -6,19 +6,22 @@ import { ActorRepository } from "../../repositories/ActorRepository";
 import { EmailRepository } from "repositories/EmailRepository";
 import { AddressRepository } from "repositories/AddressRepository";
 import { ActionRepository } from "repositories/ActionRepository";
+import { EmployeeRepository } from '../../repositories/EmployeeRepository';
+import { SchemeRepository } from "repositories/SchemeRepository";
 
 // inicializador de dependências:
 // inicializa controllers
 import "../../controllers/UserController";
-import "../../controllers/EnderecoController";
+import "../../controllers/AddressController";
 
 // inicializa services
 import "../../services/UserService";
-import "../../services/EnderecoService";
+import "../../services/AddressService";
 
 // inicializa clientes
 import "../../clients/CepClient";
 import "../../infra/http/AxiosHttpClient";
+
 
 
 const createDependencyInjector = () => {
@@ -27,6 +30,8 @@ const createDependencyInjector = () => {
   Container.set("EmailRepository", getCustomRepository(EmailRepository));
   Container.set("AddressRepository", getCustomRepository(AddressRepository));
   Container.set("ActionRepository", getCustomRepository(ActionRepository));
+  Container.set("EmployeeRepository", getCustomRepository(EmployeeRepository));
+  Container.set("SchemeRepository", getCustomRepository(SchemeRepository));
 };
 
 export default createDependencyInjector;

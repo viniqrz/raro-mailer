@@ -8,7 +8,6 @@ export type EmailDTO = {
 };
 
 export type UpdateEmailDTO = {
-  id: number;
   subject?: string;
   body?: string;
   address?: string;

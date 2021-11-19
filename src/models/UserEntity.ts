@@ -13,13 +13,16 @@ export class User {
   lastName: string;
 
   @Column({ length: 50 })
-  cargo: string;
+  position: string;
 
   @Column({ length: 20 })
   phoneNumber: string;
 
   @Column({ length: 80 })
   email: string;
+
+  @Column({ length: 80 })
+  password: string;
 
   @OneToMany(() => History, (history) => history.createdBy)
   history: History[];
