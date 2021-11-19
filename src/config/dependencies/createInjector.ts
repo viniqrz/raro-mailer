@@ -7,6 +7,7 @@ import { EmailRepository } from "repositories/EmailRepository";
 import { AddressRepository } from "repositories/AddressRepository";
 import { ActionRepository } from "repositories/ActionRepository";
 import { EmployeeRepository } from '../../repositories/EmployeeRepository';
+import { SchemeRepository } from "repositories/SchemeRepository";
 
 // inicializador de dependências:
 // inicializa controllers
@@ -30,6 +31,7 @@ const createDependencyInjector = () => {
   Container.set("AddressRepository", getCustomRepository(AddressRepository));
   Container.set("ActionRepository", getCustomRepository(ActionRepository));
   Container.set("EmployeeRepository", getCustomRepository(EmployeeRepository));
+  Container.set("SchemeRepository", getCustomRepository(SchemeRepository));
 };
 
 export default createDependencyInjector;
