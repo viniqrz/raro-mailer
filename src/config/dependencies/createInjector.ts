@@ -3,11 +3,11 @@ import Container from "typedi";
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
 import { ActorRepository } from "../../repositories/ActorRepository";
-import { EmailRepository } from "repositories/EmailRepository";
-import { AddressRepository } from "repositories/AddressRepository";
-import { ActionRepository } from "repositories/ActionRepository";
+import { EmailRepository } from "../../repositories/EmailRepository";
+import { AddressRepository } from "../../repositories/AddressRepository";
+import { ActionRepository } from "../../repositories/ActionRepository";
 import { EmployeeRepository } from '../../repositories/EmployeeRepository';
-import { SchemeRepository } from "repositories/SchemeRepository";
+import { SchemeRepository } from "../../repositories/SchemeRepository";
 
 // inicializador de dependências:
 // inicializa controllers
@@ -21,6 +21,7 @@ import "../../services/AddressService";
 // inicializa clientes
 import "../../clients/CepClient";
 import "../../infra/http/AxiosHttpClient";
+import { HistoryRepository } from "../../repositories/HistoryRepository";
 
 
 
@@ -32,6 +33,7 @@ const createDependencyInjector = () => {
   Container.set("ActionRepository", getCustomRepository(ActionRepository));
   Container.set("EmployeeRepository", getCustomRepository(EmployeeRepository));
   Container.set("SchemeRepository", getCustomRepository(SchemeRepository));
+  Container.set("HistoryRepository", getCustomRepository(HistoryRepository));
 };
 
 export default createDependencyInjector;

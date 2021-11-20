@@ -1,5 +1,5 @@
 import { SchemeDTO, UpdateSchemeDTO } from "../dto/SchemeDto";
-import { Scheme } from "models/SchemeEntity";
+import { Scheme } from "../../models/SchemeEntity";
 
 export interface ISchemeService {
   create(schemeDto: SchemeDTO): Promise<Scheme>;
