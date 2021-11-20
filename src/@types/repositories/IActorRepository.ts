@@ -6,4 +6,5 @@ export interface IActorRepository {
   remove(entity: Actor): Promise<Actor>;
   findAll(): Promise<Actor[]>;
   findById(id: number): Promise<Actor>;
+  findByEmail(email: string): Promise<Actor>;
 }
