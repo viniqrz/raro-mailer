@@ -1,13 +1,14 @@
 import { IEmployeeRepository } from "../@types/repositories/IEmployeeRepository";
 import { Employee } from "models/EmployeeEntity";
 import { Inject, Service } from "typedi";
-import { EmployeeDTO } from "../@types/dto/EmployeeDto";
+import { EmployeeDTO, UpdateEmployeeDTO } from "../@types/dto/EmployeeDto";
 import { IEmployeeService } from "../@types/services/IEmployeeService";
 
 @Service("EmployeeService")
 export class EmployeeService implements IEmployeeService {
   constructor(
-    @Inject("EmployeeRepository") private employeeRepository: IEmployeeRepository
+    @Inject("EmployeeRepository")
+    private employeeRepository: IEmployeeRepository
   ) {}
 
   public async create(employeeData: EmployeeDTO): Promise<Employee> {
@@ -30,8 +31,8 @@ export class EmployeeService implements IEmployeeService {
     return await this.employeeRepository.findById(id);
   }
 
-  async update(employeeData: EmployeeDTO) {
-    const currentEmployee = await this.employeeRepository.findById(employeeData.id);
+  async update(id: number, employeeData: UpdateEmployeeDTO) {
+    const currentEmployee = await this.employeeRepository.findById(id);
 
     const newEmployee = { ...currentEmployee, ...employeeData };
 
@@ -41,7 +42,7 @@ export class EmployeeService implements IEmployeeService {
   async delete(id: number) {
     const employeeToRemove = await this.employeeRepository.findById(id);
     if (!employeeToRemove) {
-      throw new Error('Employee not found!');
+      throw new Error("Employee not found!");
     }
 
     return await this.employeeRepository.remove(employeeToRemove);
@@ -50,7 +51,9 @@ export class EmployeeService implements IEmployeeService {
   private employeeFactory(employeeDto: EmployeeDTO): Employee {
     const employee = new Employee();
 
-    Object.keys(employeeDto).forEach((key) => (employee[key] = employeeDto[key]));
+    Object.keys(employeeDto).forEach(
+      (key) => (employee[key] = employeeDto[key])
+    );
 
     return employee;
   }

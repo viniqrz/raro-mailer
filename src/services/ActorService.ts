@@ -1,7 +1,7 @@
 import { IActorRepository } from "../@types/repositories/IActorRepository";
 import { Actor } from "models/ActorEntity";
 import { Inject, Service } from "typedi";
-import { ActorDTO } from "../@types/dto/ActorDto";
+import { ActorDTO, UpdateActorDTO } from "../@types/dto/ActorDto";
 import { IActorService } from "../@types/services/IActorService";
 
 @Service("ActorService")
@@ -30,8 +30,8 @@ export class ActorService implements IActorService {
     return await this.actorRepository.findById(id);
   }
 
-  async update(actorData: ActorDTO) {
-    const currentActor = await this.actorRepository.findById(actorData.id);
+  async update(id: number, actorData: UpdateActorDTO) {
+    const currentActor = await this.actorRepository.findById(id);
 
     const newActor = { ...currentActor, ...actorData };
 
@@ -41,7 +41,7 @@ export class ActorService implements IActorService {
   async delete(id: number) {
     const actorToRemove = await this.actorRepository.findById(id);
     if (!actorToRemove) {
-      throw new Error('Actor not found!');
+      throw new Error("Actor not found!");
     }
 
     return await this.actorRepository.remove(actorToRemove);

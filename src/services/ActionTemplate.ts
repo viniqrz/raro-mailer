@@ -42,7 +42,7 @@ export class ActionTemplateService implements IActionTemplateService {
 
   public async update(
     id: number,
-    ActionTemplateDto: UpdateActionTemplateDTO
+    actionTemplateDto: UpdateActionTemplateDTO
   ): Promise<ActionTemplate> {
     const currentActionTemplate = await this.actionTemplateRepository.findById(
       id
@@ -50,7 +50,7 @@ export class ActionTemplateService implements IActionTemplateService {
 
     const newActionTemplate = {
       ...currentActionTemplate,
-      ...ActionTemplateDto,
+      ...actionTemplateDto,
     };
 
     return await this.actionTemplateRepository.save(newActionTemplate);
