@@ -1,5 +1,5 @@
 import { ISchemeRepository } from "../@types/repositories/ISchemeRepository";
-import { Scheme } from "models/SchemeEntity";
+import { Scheme } from "../models/SchemeEntity";
 import { Inject, Service } from "typedi";
 import { SchemeDTO, UpdateSchemeDTO } from "../@types/dto/SchemeDto";
 import { ISchemeService } from "../@types/services/ISchemeService";

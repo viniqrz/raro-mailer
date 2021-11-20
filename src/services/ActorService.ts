@@ -1,5 +1,5 @@
 import { IActorRepository } from "../@types/repositories/IActorRepository";
-import { Actor } from "models/ActorEntity";
+import { Actor } from "../models/ActorEntity";
 import { Inject, Service } from "typedi";
 import { ActorDTO, UpdateActorDTO } from "../@types/dto/ActorDto";
 import { IActorService } from "../@types/services/IActorService";
@@ -28,6 +28,10 @@ export class ActorService implements IActorService {
 
   public async getById(id: number): Promise<Actor> {
     return await this.actorRepository.findById(id);
+  }
+
+  public async getByEmail(email: string): Promise<Actor> {
+    return await this.actorRepository.findByEmail(email);
   }
 
   async update(id: number, actorData: UpdateActorDTO) {
