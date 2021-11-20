@@ -1,5 +1,5 @@
 import { IEmployeeRepository } from "../@types/repositories/IEmployeeRepository";
-import { Employee } from "models/EmployeeEntity";
+import { Employee } from "../models/EmployeeEntity";
 import { Inject, Service } from "typedi";
 import { EmployeeDTO, UpdateEmployeeDTO } from "../@types/dto/EmployeeDto";
 import { IEmployeeService } from "../@types/services/IEmployeeService";
@@ -29,6 +29,10 @@ export class EmployeeService implements IEmployeeService {
 
   public async getById(id: number): Promise<Employee> {
     return await this.employeeRepository.findById(id);
+  }
+
+  public async getByEmail(email: string): Promise<Employee> {
+    return await this.employeeRepository.findByEmail(email);
   }
 
   async update(id: number, employeeData: UpdateEmployeeDTO) {

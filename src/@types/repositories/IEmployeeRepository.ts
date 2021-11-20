@@ -5,4 +5,5 @@ export interface IEmployeeRepository {
   remove(Employee: Employee): Promise<Employee>;
   findAll(): Promise<Employee[]>;
   findById(id: number): Promise<Employee>;
+  findByEmail(email: string): Promise<Employee>;
 }
