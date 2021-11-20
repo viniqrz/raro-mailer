@@ -14,4 +14,8 @@ implements IEmployeeRepository {
   public async findById(id: number): Promise<Employee> {
    return await this.findOne(id);
   }
+
+  public async findByEmail(email: string): Promise<Employee> {
+    return await this.findOne({ where: email });
+  }
 }
