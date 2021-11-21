@@ -10,9 +10,9 @@ import {
 import { IUserService } from "../@types/services/IUserService";
 import { IUserRepository } from "../@types/repositories/IUserRepository";
 import { User } from "../models/UserEntity";
-import { createHash } from "helpers/createHash";
-import { compareHash } from "helpers/compareHash";
-import { generateToken } from "helpers/generateToken";
+import { createHash } from "../helpers/createHash";
+import { compareHash } from "../helpers/compareHash";
+import { generateToken } from "../helpers/generateToken";
 
 @Service("UserService")
 export class UserService implements IUserService {

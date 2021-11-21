@@ -42,6 +42,7 @@ export class Employee {
 
   @OneToOne(() => Address, (address) => address.employee, {
     nullable: true,
+    cascade: true,
   })
   address: Address;
 

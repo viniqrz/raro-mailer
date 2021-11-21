@@ -1,31 +1,22 @@
 import { Inject, Service } from "typedi";
-import {Request, Response, NextFunction} from "express";
+import { Response, NextFunction } from "express";
 import { IActorService } from "../@types/services/IActorService";
+import { IRequest } from "../@types/express/request";
 
 @Service("ActorController")
 export class ActorController {
   constructor(@Inject("ActorService") private actorService: IActorService) {}
 
-  async create(request: Request, response: Response, next: NextFunction) {
+  async create(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { actor } = request.body;
-
-      const actorAlreadyExists = await this.actorService.getByEmail(
-        actor.email
-      );
-
-      if (actorAlreadyExists) {
-        return response.status(400).json({
-          error: `Actor already exists.`,
-        });
-      }
+      const actor = req.body;
 
       const savedActor = await this.actorService.create(actor);
 
-      response.status(200).json({
+      res.status(200).json({
         status: "success",
         data: {
-          scheme: savedActor,
+          actor: savedActor,
         },
       });
     } catch (err) {
@@ -33,7 +24,7 @@ export class ActorController {
     }
   }
 
-  public async getAll(req: Request, res: Response, next: NextFunction) {
+  public async getAll(req: IRequest, res: Response, next: NextFunction) {
     try {
       const actors = await this.actorService.getAll();
 
@@ -46,7 +37,7 @@ export class ActorController {
     }
   }
 
-  public async getById(req: Request, res: Response, next: NextFunction) {
+  public async getById(req: IRequest, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
 
@@ -61,25 +52,10 @@ export class ActorController {
     }
   }
 
-  public async getByEmail(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { email } = req.params;
-
-      const actor = await this.actorService.getByEmail(email);
-
-      res.status(200).json({
-        status: "success",
-        data: { actor },
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  public async update(req: Request, res: Response, next: NextFunction) {
+  public async update(req: IRequest, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { actor } = req.body;
+      const actor = req.body;
 
       const savedActor = await this.actorService.update(Number(id), actor);
 
@@ -92,7 +68,7 @@ export class ActorController {
     }
   }
 
-  public async delete(req: Request, res: Response, next: NextFunction) {
+  public async delete(req: IRequest, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
 
