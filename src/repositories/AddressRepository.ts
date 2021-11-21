@@ -1,4 +1,4 @@
-import { Address } from "models/AddressEntity";
+import { Address } from "../models/AddressEntity";
 import { EntityRepository, Repository } from "typeorm";
 import { IAddressRepository } from "../@types/repositories/IAddressRepository";
 

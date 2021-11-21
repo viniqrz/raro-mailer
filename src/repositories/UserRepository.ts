@@ -10,8 +10,12 @@ export class UserRepository
   public async findAll(): Promise<User[]> {
     return await this.find();
   }
+
   public async findById(id: number): Promise<User> {
-    return await this.findOne(id);
+    return await this.findOne({
+      where: { id },
+      relations: ["address", "actor"],
+    });
   }
 
   public async findByEmail(email: string): Promise<User> {

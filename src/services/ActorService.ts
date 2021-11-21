@@ -34,7 +34,7 @@ export class ActorService implements IActorService {
     return await this.actorRepository.findByEmail(email);
   }
 
-  async update(id: number, actorData: UpdateActorDTO) {
+  public async update(id: number, actorData: UpdateActorDTO) {
     const currentActor = await this.actorRepository.findById(id);
 
     const newActor = { ...currentActor, ...actorData };
@@ -42,7 +42,7 @@ export class ActorService implements IActorService {
     return await this.actorRepository.save(newActor);
   }
 
-  async delete(id: number) {
+  public async delete(id: number) {
     const actorToRemove = await this.actorRepository.findById(id);
     if (!actorToRemove) {
       throw new Error("Actor not found!");
