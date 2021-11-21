@@ -14,6 +14,9 @@ export function ensureAuth(req: IRequest, res: Response, next: NextFunction) {
 
     next();
   } catch (err) {
-    res.status(401).json();
+    res.status(401).json({
+      status: "fail",
+      message: `Access denied: ${err.message}`,
+    });
   }
 }
