@@ -5,18 +5,25 @@ import { IRequest } from "../@types/express/request";
 
 @Service("UserController")
 export class UserController {
-  constructor(@Inject("UserService") private userService: IUserService) {}
+  constructor(@Inject("UserService") private userService: IUserService) {
+    this.signup = this.signup.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+  }
 
   public async signup(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { user } = req.body;
+      const user = req.body;
 
       const userWithoutPassword = await this.userService.signup(user);
 
       res.status(200).json({
         status: "success",
         data: {
-          userWithoutPassword,
+          user: userWithoutPassword,
         },
       });
     } catch (err) {
@@ -60,9 +67,9 @@ export class UserController {
 
   public async getById(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      const user = await this.userService.getById(Number(userId));
+      const user = await this.userService.getById(Number(id));
 
       res.status(200).json({
         status: "success",
@@ -75,10 +82,10 @@ export class UserController {
 
   public async update(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
-      const { user } = req.body;
+      const { id } = req.params;
+      const user = req.body;
 
-      const updatedUser = await this.userService.update(Number(userId), user);
+      const updatedUser = await this.userService.update(Number(id), user);
 
       res.status(200).json({
         status: "success",
@@ -91,9 +98,9 @@ export class UserController {
 
   public async delete(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      const user = await this.userService.delete(Number(userId));
+      const user = await this.userService.delete(Number(id));
 
       res.status(200).json({
         status: "success",

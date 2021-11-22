@@ -69,8 +69,13 @@ export class UserService implements IUserService {
     return this.omitPassword(await this.userRepository.findById(id));
   }
 
-  public async update(id: number, userDto: UpdateUserDTO) {
-    await this.userRepository.save({ ...userDto, id } as User);
+  public async update(
+    id: number,
+    userDto: UpdateUserDTO
+  ): Promise<UserWithoutPassword> {
+    return this.omitPassword(
+      await this.userRepository.save({ ...userDto, id } as User)
+    );
   }
 
   public async delete(id: number) {

@@ -6,6 +6,6 @@ export interface IUserService {
   getById(id: number): Promise<UserWithoutPassword>;
   signup(userDto: UserDTO): Promise<UserWithoutPassword>;
   authenticate(email: string, password: string): Promise<UserAndToken>;
-  update(id: number, usuarioDto: UserDTO): Promise<void>;
+  update(id: number, usuarioDto: UserDTO): Promise<UserWithoutPassword>;
   delete(id: number): Promise<void>;
 }

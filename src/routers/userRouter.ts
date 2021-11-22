@@ -18,7 +18,7 @@ export const createUserRouter = () => {
   router.patch("/:id", ensureAuth, controller.update);
   router.delete("/:id", ensureAuth, controller.delete);
 
-  router.post("authenticate", controller.authenticate);
+  router.post("/authenticate", controller.authenticate);
 
   return router;
 };

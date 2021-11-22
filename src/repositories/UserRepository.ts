@@ -12,10 +12,7 @@ export class UserRepository
   }
 
   public async findById(id: number): Promise<User> {
-    return await this.findOne({
-      where: { id },
-      relations: ["address", "actor"],
-    });
+    return await this.findOne(id);
   }
 
   public async findByEmail(email: string): Promise<User> {
