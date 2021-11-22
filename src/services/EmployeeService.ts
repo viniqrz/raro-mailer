@@ -1,8 +1,9 @@
 import { IEmployeeRepository } from "../@types/repositories/IEmployeeRepository";
 import { Employee } from "../models/EmployeeEntity";
-import { Inject, Service } from "typedi";
+import Container, { Inject, Service } from "typedi";
 import { EmployeeDTO, UpdateEmployeeDTO } from "../@types/dto/EmployeeDto";
 import { IEmployeeService } from "../@types/services/IEmployeeService";
+import { ActorService } from "./ActorService";
 
 @Service("EmployeeService")
 export class EmployeeService implements IEmployeeService {
@@ -13,7 +14,7 @@ export class EmployeeService implements IEmployeeService {
 
   public async create(employeeData: EmployeeDTO): Promise<Employee> {
     try {
-      const employee = this.employeeFactory(employeeData);
+      const employee = await this.employeeFactory(employeeData);
 
       const savedEmployee = await this.employeeRepository.save(employee);
 
@@ -29,10 +30,6 @@ export class EmployeeService implements IEmployeeService {
 
   public async getById(id: number): Promise<Employee> {
     return await this.employeeRepository.findById(id);
-  }
-
-  public async getByEmail(email: string): Promise<Employee> {
-    return await this.employeeRepository.findByEmail(email);
   }
 
   async update(id: number, employeeData: UpdateEmployeeDTO) {
@@ -52,12 +49,22 @@ export class EmployeeService implements IEmployeeService {
     return await this.employeeRepository.remove(employeeToRemove);
   }
 
-  private employeeFactory(employeeDto: EmployeeDTO): Employee {
+  private async employeeFactory(employeeDto: EmployeeDTO): Promise<Employee> {
     const employee = new Employee();
 
-    Object.keys(employeeDto).forEach(
-      (key) => (employee[key] = employeeDto[key])
+    if (!employeeDto.actorId) throw new Error("No actor id provided");
+
+    Object.keys(employeeDto)
+      .filter((key) => key !== "actorId")
+      .forEach((key) => (employee[key] = employeeDto[key]));
+
+    const actor = await Container.get<ActorService>("ActorService").getById(
+      employeeDto.actorId
     );
+
+    if (!actor) throw new Error("There's no actor with this id");
+
+    employee.actor = actor;
 
     return employee;
   }

@@ -37,11 +37,10 @@ export class Employee {
   @Column({ length: 50 })
   department: string;
 
-  @ManyToOne(() => Actor, (actor) => actor.employees, { nullable: true })
+  @ManyToOne(() => Actor, (actor) => actor.employees)
   actor: Actor;
 
   @OneToOne(() => Address, (address) => address.employee, {
-    nullable: true,
     cascade: true,
   })
   address: Address;

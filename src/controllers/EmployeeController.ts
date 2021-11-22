@@ -1,31 +1,29 @@
 import { Inject, Service } from "typedi";
-import {Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 import { IEmployeeService } from "../@types/services/IEmployeeService";
 
 @Service("EmployeeController")
 export class EmployeeController {
-  constructor(@Inject("EmployeeService") private employeeService: IEmployeeService) {}
+  constructor(
+    @Inject("EmployeeService") private employeeService: IEmployeeService
+  ) {
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
-  async create(request: Request, response: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { employee } = request.body;
-
-      const employeeAlreadyExists = await this.employeeService.getByEmail(
-        employee.email
-      );
-
-      if (employeeAlreadyExists) {
-        return response.status(400).json({
-          error: `Employee already exists.`,
-        });
-      }
+      const employee = req.body;
 
       const savedEmployee = await this.employeeService.create(employee);
 
-      response.status(200).json({
+      res.status(200).json({
         status: "success",
         data: {
-          scheme: savedEmployee,
+          employee: savedEmployee,
         },
       });
     } catch (err) {
@@ -61,27 +59,15 @@ export class EmployeeController {
     }
   }
 
-  public async getByEmail(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { email } = req.params;
-
-      const employee = await this.employeeService.getByEmail(email);
-
-      res.status(200).json({
-        status: "success",
-        data: { employee },
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { employee } = req.body;
+      const employee = req.body;
 
-      const savedEmployee = await this.employeeService.update(Number(id), employee);
+      const savedEmployee = await this.employeeService.update(
+        Number(id),
+        employee
+      );
 
       res.status(200).json({
         status: "success",

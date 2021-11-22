@@ -6,6 +6,7 @@ export interface EmployeeDTO {
   email: string;
   project: string;
   department: string;
+  actorId: number;
 }
 
 export interface UpdateEmployeeDTO {
@@ -16,4 +17,5 @@ export interface UpdateEmployeeDTO {
   email?: string;
   project?: string;
   department?: string;
+  actorId?: number;
 }
