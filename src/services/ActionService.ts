@@ -1,6 +1,6 @@
 import { IActionRepository } from "../@types/repositories/IActionRepository";
 import { Inject, Service } from "typedi";
-import { Action } from "models/ActionEntity";
+import { Action } from "../models/ActionEntity";
 import { ActionDTO, UpdateActionDTO } from "../@types/dto/ActionDto";
 import { IActionService } from "../@types/services/IActionService";
 

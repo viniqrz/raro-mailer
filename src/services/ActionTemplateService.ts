@@ -1,5 +1,5 @@
 import { IActionTemplateRepository } from "../@types/repositories/IActionTemplateRepository";
-import { ActionTemplate } from "models/ActionTemplateEntity";
+import { ActionTemplate } from "../models/ActionTemplateEntity";
 import { Inject, Service } from "typedi";
 
 import {

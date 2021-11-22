@@ -1,4 +1,4 @@
-import { Action } from "models/ActionEntity";
+import { Action } from "../models/ActionEntity";
 import { EntityRepository, Repository } from "typeorm";
 import { IActionRepository } from "../@types/repositories/IActionRepository";
 

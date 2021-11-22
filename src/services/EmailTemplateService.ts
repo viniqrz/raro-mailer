@@ -1,5 +1,5 @@
 import { IEmailTemplateRepository } from "../@types/repositories/IEmailTemplateRepository";
-import { EmailTemplate } from "models/EmailTemplateEntity";
+import { EmailTemplate } from "../models/EmailTemplateEntity";
 import { Inject, Service } from "typedi";
 
 import {

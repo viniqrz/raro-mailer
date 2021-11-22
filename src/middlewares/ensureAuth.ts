@@ -6,6 +6,9 @@ import { verifyToken } from "../helpers/verifyToken";
 export function ensureAuth(req: IRequest, res: Response, next: NextFunction) {
   try {
     const bearer = req.headers.authorization;
+
+    if (!bearer) throw new Error("No token sent");
+
     const [, token] = bearer.split(" ");
 
     const { data } = verifyToken(token) as JwtPayload;
@@ -16,7 +19,7 @@ export function ensureAuth(req: IRequest, res: Response, next: NextFunction) {
   } catch (err) {
     res.status(401).json({
       status: "fail",
-      message: `Access denied: ${err.message}`,
+      message: `Access denied: ${err.message}.`,
     });
   }
 }
