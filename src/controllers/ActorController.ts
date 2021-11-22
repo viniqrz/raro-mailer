@@ -5,7 +5,13 @@ import { IRequest } from "../@types/express/request";
 
 @Service("ActorController")
 export class ActorController {
-  constructor(@Inject("ActorService") private actorService: IActorService) {}
+  constructor(@Inject("ActorService") private actorService: IActorService) {
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
   async create(req: IRequest, res: Response, next: NextFunction) {
     try {

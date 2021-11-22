@@ -61,8 +61,10 @@ export class UserService implements IUserService {
     }
   }
 
-  public async getAll(): Promise<User[]> {
-    return this.userRepository.findAll();
+  public async getAll(): Promise<UserWithoutPassword[]> {
+    return (await this.userRepository.findAll()).map((u) =>
+      this.omitPassword(u)
+    );
   }
 
   public async getById(id: number): Promise<UserWithoutPassword> {

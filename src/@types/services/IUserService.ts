@@ -1,8 +1,7 @@
 import { UserAndToken, UserDTO, UserWithoutPassword } from "../dto/UserDto";
-import { User } from "../../models/UserEntity";
 
 export interface IUserService {
-  getAll(): Promise<User[]>;
+  getAll(): Promise<UserWithoutPassword[]>;
   getById(id: number): Promise<UserWithoutPassword>;
   signup(userDto: UserDTO): Promise<UserWithoutPassword>;
   authenticate(email: string, password: string): Promise<UserAndToken>;
