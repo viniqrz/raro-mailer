@@ -30,6 +30,7 @@ import "../../services/EmailTemplateService";
 import "../../services/HistoryService";
 import "../../services/SchemeService";
 import "../../services/EmployeeService";
+import "../../services/AddressService";
 
 // inicializa clientes
 import "../../clients/CepClient";

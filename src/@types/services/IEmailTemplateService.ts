@@ -3,7 +3,7 @@ import {
   UpdateEmailTemplateDTO,
 } from "../dto/EmailTemplateDto";
 
-import { EmailTemplate } from "models/EmailTemplateEntity";
+import { EmailTemplate } from "../../models/EmailTemplateEntity";
 
 export interface IEmailTemplateService {
   create(EmailTemplateDto: EmailTemplateDTO): Promise<EmailTemplate>;

@@ -1,5 +1,5 @@
 import { EmailDTO, UpdateEmailDTO } from "../dto/EmailDto";
-import { Email } from "models/EmailEntity";
+import { Email } from "../../models/EmailEntity";
 
 export interface IEmailService {
   create(emailDto: EmailDTO): Promise<Email>;

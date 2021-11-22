@@ -25,10 +25,10 @@ export class Employee {
   @Column({ length: 50 })
   position: string;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, unique: true })
   phoneNumber: string;
 
-  @Column({ length: 80 })
+  @Column({ length: 80, unique: true })
   email: string;
 
   @Column({ length: 50 })
@@ -40,9 +40,7 @@ export class Employee {
   @ManyToOne(() => Actor, (actor) => actor.employees)
   actor: Actor;
 
-  @OneToOne(() => Address, (address) => address.employee, {
-    cascade: true,
-  })
+  @OneToOne(() => Address, (address) => address.employee)
   address: Address;
 
   @OneToMany(() => Action, (action) => action.employee)

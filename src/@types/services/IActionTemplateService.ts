@@ -3,7 +3,7 @@ import {
   UpdateActionTemplateDTO,
 } from "../dto/ActionTemplateDto";
 
-import { ActionTemplate } from "models/ActionTemplateEntity";
+import { ActionTemplate } from "../../models/ActionTemplateEntity";
 
 export interface IActionTemplateService {
   create(ActionTemplateDto: ActionTemplateDTO): Promise<ActionTemplate>;

@@ -1,4 +1,5 @@
-import { Employee } from '../../models/EmployeeEntity';
+import { UpdateResult } from "typeorm";
+import { Employee } from "../../models/EmployeeEntity";
 
 export interface IEmployeeRepository {
   save(employee: Employee): Promise<Employee>;
@@ -6,4 +7,5 @@ export interface IEmployeeRepository {
   findAll(): Promise<Employee[]>;
   findById(id: number): Promise<Employee>;
   findByEmail(email: string): Promise<Employee>;
+  updateById(id: number, entity: Employee): Promise<UpdateResult>;
 }

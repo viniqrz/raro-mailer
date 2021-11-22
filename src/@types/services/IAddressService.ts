@@ -1,5 +1,6 @@
-import { AddressDto } from "../dto/AddressDto";
+import { AddressDTO } from "../dto/AddressDto";
+import { Address } from "../../models/AddressEntity";
 
 export interface IAddressService {
-  getByCep(cep: string): Promise<AddressDto>;
+  create(addressDto: AddressDTO): Promise<Address>;
 }

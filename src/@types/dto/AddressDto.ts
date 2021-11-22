@@ -1,12 +1,19 @@
-export interface AddressDto {
+export interface AddressDTO {
+  street: string;
+  district: string;
+  number: number;
+  city: string;
+  state: string;
+  country: string;
   cep: string;
-  logradouro: string;
-  complemento: string;
-  bairro: string;
-  localidade: string;
-  uf: string;
-  ibge: string;
-  gia: string;
-  ddd: string;
-  siafi: string;
+}
+
+export interface UpdateAddressDTO {
+  street?: string;
+  district?: string;
+  number?: number;
+  city?: string;
+  state?: string;
+  country?: string;
+  cep?: string;
 }

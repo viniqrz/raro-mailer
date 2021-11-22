@@ -1,3 +1,5 @@
+import { AddressDTO } from "./AddressDto";
+
 export interface EmployeeDTO {
   firstName: string;
   lastName: string;
@@ -7,6 +9,7 @@ export interface EmployeeDTO {
   project: string;
   department: string;
   actorId: number;
+  address: AddressDTO;
 }
 
 export interface UpdateEmployeeDTO {
@@ -18,4 +21,5 @@ export interface UpdateEmployeeDTO {
   project?: string;
   department?: string;
   actorId?: number;
+  address?: AddressDTO;
 }

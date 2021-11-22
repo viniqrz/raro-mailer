@@ -15,6 +15,9 @@ export class Address {
   @Column({ length: 50 })
   street: string;
 
+  @Column()
+  number: number;
+
   @Column({ length: 20 })
   district: string;
 
@@ -30,7 +33,7 @@ export class Address {
   @Column({ length: 15 })
   cep: string;
 
-  @OneToOne(() => Employee, (employee) => employee.address)
+  @OneToOne(() => Employee, (employee) => employee.address, { cascade: true })
   @JoinColumn()
   employee: Employee;
 }

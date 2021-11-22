@@ -1,4 +1,4 @@
-import { Action } from "models/ActionEntity";
+import { Action } from "../../models/ActionEntity";
 import { ActionDTO, UpdateActionDTO } from "../dto/ActionDto";
 
 export interface IActionService {

@@ -1,16 +1,16 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class init1637603030954 implements MigrationInterface {
-    name = 'init1637603030954'
+export class updateConstraint1637611593437 implements MigrationInterface {
+    name = 'updateConstraint1637611593437'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE \`address\` (\`id\` int NOT NULL AUTO_INCREMENT, \`street\` varchar(50) NOT NULL, \`district\` varchar(20) NOT NULL, \`city\` varchar(30) NOT NULL, \`state\` varchar(25) NOT NULL, \`country\` varchar(30) NOT NULL, \`cep\` varchar(15) NOT NULL, \`employeeId\` int NULL, UNIQUE INDEX \`REL_9b44dcf8132ae6af5d0efcaec1\` (\`employeeId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`address\` (\`id\` int NOT NULL AUTO_INCREMENT, \`street\` varchar(50) NOT NULL, \`number\` int NOT NULL, \`district\` varchar(20) NOT NULL, \`city\` varchar(30) NOT NULL, \`state\` varchar(25) NOT NULL, \`country\` varchar(30) NOT NULL, \`cep\` varchar(15) NOT NULL, \`employeeId\` int NULL, UNIQUE INDEX \`REL_9b44dcf8132ae6af5d0efcaec1\` (\`employeeId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`email\` (\`id\` int NOT NULL AUTO_INCREMENT, \`subject\` varchar(80) NOT NULL, \`body\` varchar(1200) NOT NULL, \`address\` varchar(80) NOT NULL, \`sendDate\` datetime NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`action_template\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(120) NOT NULL, \`emailId\` int NULL, UNIQUE INDEX \`REL_201b8ec5d519d02b8736bd74f8\` (\`emailId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`scheme\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(80) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`user\` (\`id\` int NOT NULL AUTO_INCREMENT, \`firstName\` varchar(25) NOT NULL, \`lastName\` varchar(25) NOT NULL, \`position\` varchar(50) NOT NULL, \`phoneNumber\` varchar(20) NOT NULL, \`email\` varchar(80) NOT NULL, \`password\` varchar(80) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`history\` (\`id\` int NOT NULL AUTO_INCREMENT, \`schemeId\` int NULL, \`actorId\` int NULL, \`employeeId\` int NULL, \`createdById\` int NULL, UNIQUE INDEX \`REL_52d32c0a640a1d320bed80abc1\` (\`schemeId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
-        await queryRunner.query(`CREATE TABLE \`employee\` (\`id\` int NOT NULL AUTO_INCREMENT, \`firstName\` varchar(25) NOT NULL, \`lastName\` varchar(25) NOT NULL, \`position\` varchar(50) NOT NULL, \`phoneNumber\` varchar(20) NOT NULL, \`email\` varchar(80) NOT NULL, \`project\` varchar(50) NOT NULL, \`department\` varchar(50) NOT NULL, \`actorId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`employee\` (\`id\` int NOT NULL AUTO_INCREMENT, \`firstName\` varchar(25) NOT NULL, \`lastName\` varchar(25) NOT NULL, \`position\` varchar(50) NOT NULL, \`phoneNumber\` varchar(20) NOT NULL, \`email\` varchar(80) NOT NULL, \`project\` varchar(50) NOT NULL, \`department\` varchar(50) NOT NULL, \`actorId\` int NULL, UNIQUE INDEX \`IDX_b16a62b0eb49a67425c9a6bca1\` (\`phoneNumber\`), UNIQUE INDEX \`IDX_817d1d427138772d47eca04885\` (\`email\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`actor\` (\`id\` int NOT NULL AUTO_INCREMENT, \`firstName\` varchar(25) NOT NULL, \`lastName\` varchar(25) NOT NULL, \`position\` varchar(50) NOT NULL, \`phoneNumber\` varchar(20) NOT NULL, \`email\` varchar(80) NOT NULL, \`project\` varchar(50) NOT NULL, \`department\` varchar(50) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`action\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(120) NOT NULL, \`emailId\` int NULL, \`actorId\` int NULL, \`employeeId\` int NULL, UNIQUE INDEX \`REL_e5705bc1555410b9e0d301e9ba\` (\`emailId\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`email_template\` (\`id\` int NOT NULL AUTO_INCREMENT, \`subject\` varchar(80) NOT NULL, \`body\` varchar(1200) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
@@ -41,6 +41,8 @@ export class init1637603030954 implements MigrationInterface {
         await queryRunner.query(`DROP INDEX \`REL_e5705bc1555410b9e0d301e9ba\` ON \`action\``);
         await queryRunner.query(`DROP TABLE \`action\``);
         await queryRunner.query(`DROP TABLE \`actor\``);
+        await queryRunner.query(`DROP INDEX \`IDX_817d1d427138772d47eca04885\` ON \`employee\``);
+        await queryRunner.query(`DROP INDEX \`IDX_b16a62b0eb49a67425c9a6bca1\` ON \`employee\``);
         await queryRunner.query(`DROP TABLE \`employee\``);
         await queryRunner.query(`DROP INDEX \`REL_52d32c0a640a1d320bed80abc1\` ON \`history\``);
         await queryRunner.query(`DROP TABLE \`history\``);
