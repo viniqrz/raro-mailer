@@ -32,6 +32,12 @@ export class AddressService implements IAddressService {
     return await this.addressRepository.save(newAddress);
   }
 
+  public async deleteByEmployeeId(id: number): Promise<Address> {
+    const address = await this.getByEmployeeId(id);
+
+    return await this.addressRepository.remove(address);
+  }
+
   private addressFactory(addressDto: AddressDTO): Address {
     const address = new Address();
 

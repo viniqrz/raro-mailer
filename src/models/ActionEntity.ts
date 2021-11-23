@@ -1,15 +1,13 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  ManyToMany,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
 import { Actor } from "./ActorEntity";
-import { Email } from "./EmailEntity";
-import { Employee } from "./EmployeeEntity";
+import { Bundle } from "./BundleEntity";
 
 @Entity()
 export class Action {
@@ -19,13 +17,18 @@ export class Action {
   @Column({ length: 120 })
   name: string;
 
-  @OneToOne(() => Email, (email) => email.action)
-  @JoinColumn()
-  email: Email;
+  @Column({ length: 80 })
+  subject: string;
+
+  @Column({ length: 1200 })
+  body: string;
+
+  @Column()
+  date: Date;
 
   @ManyToOne(() => Actor, (actor) => actor.actions)
   actor: Actor;
 
-  @ManyToOne(() => Employee, (employee) => employee.actions)
-  employee: Employee;
+  @ManyToMany(() => Bundle, (bundle) => bundle.actions)
+  bundles: Bundle[];
 }

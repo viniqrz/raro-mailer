@@ -1,5 +1,4 @@
 import { Address } from "../../models/AddressEntity";
-import { UpdateAddressDTO } from "../dto/AddressDto";
 
 export interface IAddressRepository {
   save(address: Address): Promise<Address>;
@@ -7,5 +6,5 @@ export interface IAddressRepository {
   findById(id: number): Promise<Address>;
   remove(address: Address): Promise<Address>;
   findByEmployeeId(id: number): Promise<Address>;
-  updateByEmployeeId(id: number, partial: UpdateAddressDTO): Promise<Address>;
+  deleteByEmployeeId(id: number): Promise<Address>;
 }

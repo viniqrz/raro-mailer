@@ -1,8 +1,10 @@
 import { ISchemeRepository } from "../@types/repositories/ISchemeRepository";
 import { Scheme } from "../models/SchemeEntity";
-import { Inject, Service } from "typedi";
+import { Container, Inject, Service } from "typedi";
 import { SchemeDTO, UpdateSchemeDTO } from "../@types/dto/SchemeDto";
 import { ISchemeService } from "../@types/services/ISchemeService";
+import { ActionTemplateService } from "./ActionTemplateService";
+import { ActionTemplate } from "../models/ActionTemplateEntity";
 
 @Service("SchemeService")
 export class SchemeService implements ISchemeService {
@@ -10,12 +12,14 @@ export class SchemeService implements ISchemeService {
     @Inject("SchemeRepository") private schemeRepository: ISchemeRepository
   ) {}
 
-  public async create(schemeData: SchemeDTO): Promise<Scheme> {
+  public async create(schemeDto: SchemeDTO): Promise<Scheme> {
     try {
-      const scheme = this.schemeFactory(schemeData);
+      const { name, actionTemplatesIds } = schemeDto;
+
+      const actionTemplates = await this.getTemplates(actionTemplatesIds);
+      const scheme = this.schemeFactory(name, actionTemplates);
 
       const savedScheme = await this.schemeRepository.save(scheme);
-
       return savedScheme;
     } catch (err) {
       throw new Error(`Couldn't create an scheme: ${err.message}.`);
@@ -30,12 +34,20 @@ export class SchemeService implements ISchemeService {
     return await this.schemeRepository.findById(id);
   }
 
-  public async update(id: number, schemeData: UpdateSchemeDTO) {
+  public async update(id: number, schemeDto: UpdateSchemeDTO) {
     const currentScheme = await this.schemeRepository.findById(id);
 
-    const newScheme = { ...currentScheme, ...schemeData };
+    if ("actionTemplatesIds" in schemeDto) {
+      currentScheme.actionTemplates = await this.getTemplates(
+        schemeDto.actionTemplatesIds
+      );
+    }
 
-    return await this.schemeRepository.save(newScheme);
+    if ("name" in schemeDto) {
+      currentScheme.name = schemeDto.name;
+    }
+
+    return await this.schemeRepository.save(currentScheme);
   }
 
   public async delete(id: number) {
@@ -47,10 +59,24 @@ export class SchemeService implements ISchemeService {
     return await this.schemeRepository.remove(schemeToRemove);
   }
 
-  private schemeFactory(schemeDto: SchemeDTO): Scheme {
+  private async getTemplates(idArray: number[]): Promise<ActionTemplate[]> {
+    const templateService = Container.get<ActionTemplateService>(
+      "ActionTemplateService"
+    );
+
+    const templates = idArray.map((id) => templateService.getById(id));
+
+    return Promise.all(templates);
+  }
+
+  private schemeFactory(
+    name: string,
+    actionTemplates: ActionTemplate[]
+  ): Scheme {
     const scheme = new Scheme();
 
-    Object.keys(schemeDto).forEach((key) => (scheme[key] = schemeDto[key]));
+    scheme.name = name;
+    scheme.actionTemplates = actionTemplates;
 
     return scheme;
   }

@@ -6,10 +6,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Action } from "./ActionEntity";
+
 import { Actor } from "./ActorEntity";
 import { Address } from "./AddressEntity";
-import { History } from "./HistoryEntity";
+import { Bundle } from "./BundleEntity";
 
 @Entity()
 export class Employee {
@@ -32,9 +32,6 @@ export class Employee {
   email: string;
 
   @Column({ length: 50 })
-  project: string;
-
-  @Column({ length: 50 })
   department: string;
 
   @ManyToOne(() => Actor, (actor) => actor.employees)
@@ -43,9 +40,6 @@ export class Employee {
   @OneToOne(() => Address, (address) => address.employee)
   address: Address;
 
-  @OneToMany(() => Action, (action) => action.employee)
-  actions: Action[];
-
-  @OneToMany(() => History, (history) => history.employee)
-  history: History[];
+  @OneToMany(() => Bundle, (bundle) => bundle.employee)
+  bundle: Bundle[];
 }

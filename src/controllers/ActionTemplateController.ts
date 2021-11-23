@@ -8,11 +8,17 @@ export class ActionTemplateController {
   constructor(
     @Inject("ActionTemplateService")
     private actionTemplateService: IActionTemplateService
-  ) {}
+  ) {
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
   public async create(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { action } = req.body;
+      const action = req.body;
 
       const actionTemplate = await this.actionTemplateService.create(action);
 
@@ -60,7 +66,7 @@ export class ActionTemplateController {
   public async update(req: IRequest, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { action } = req.body;
+      const action = req.body;
 
       const actionTemplate = await this.actionTemplateService.update(
         Number(id),

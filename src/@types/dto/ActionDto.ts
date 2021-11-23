@@ -1,18 +1,20 @@
-import { Actor } from "models/ActorEntity";
-import { Email } from "models/EmailEntity";
-import { Employee } from "models/EmployeeEntity";
+import { Actor } from "../../models/ActorEntity";
+import { Employee } from "../../models/EmployeeEntity";
 
 export type ActionDTO = {
   id?: number;
   name: string;
-  email: Email;
-  actor: Actor;
+  subject: string;
+  body: string;
+  date: Date;
   employee: Employee;
 };
 
 export type UpdateActionDTO = {
   name?: string;
-  email?: Email;
+  subject?: string;
+  body?: string;
   actor?: Actor;
+  date?: Date;
   employee?: Employee;
 };

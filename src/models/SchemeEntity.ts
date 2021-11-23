@@ -1,24 +1,22 @@
 import {
   Column,
   Entity,
-  OneToMany,
-  OneToOne,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+
 import { ActionTemplate } from "./ActionTemplateEntity";
-import { History } from "./HistoryEntity";
 
 @Entity()
 export class Scheme {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 80 })
+  @Column({ length: 255 })
   name: string;
 
-  @OneToMany(() => ActionTemplate, (actionTemplate) => actionTemplate.scheme)
+  @ManyToMany(() => ActionTemplate, (actionTemplate) => actionTemplate.schemes)
+  @JoinTable()
   actionTemplates: ActionTemplate[];
-
-  @OneToOne(() => History, (history) => history.scheme)
-  history: History;
 }

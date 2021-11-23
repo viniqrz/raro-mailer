@@ -4,7 +4,6 @@ export interface ActorDTO {
   position: string;
   phoneNumber: string;
   email: string;
-  project: string;
   department: string;
 }
 
@@ -14,6 +13,5 @@ export interface UpdateActorDTO {
   position?: string;
   phoneNumber?: string;
   email?: string;
-  project?: string;
   department?: string;
 }

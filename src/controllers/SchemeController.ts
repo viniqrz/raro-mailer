@@ -8,11 +8,17 @@ export class SchemeController {
   constructor(
     @Inject("SchemeService")
     private schemeService: ISchemeService
-  ) {}
+  ) {
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
   public async create(req: IRequest, res: Response, next: NextFunction) {
     try {
-      const { scheme } = req.body;
+      const scheme = req.body;
 
       const savedScheme = await this.schemeService.create(scheme);
 
@@ -58,7 +64,7 @@ export class SchemeController {
   public async update(req: IRequest, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { scheme } = req.body;
+      const scheme = req.body;
 
       const savedScheme = await this.schemeService.update(Number(id), scheme);
 

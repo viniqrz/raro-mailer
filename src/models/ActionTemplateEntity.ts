@@ -1,12 +1,5 @@
-import {
-  Column,
-  Entity,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
 
-import { Email } from "./EmailEntity";
 import { Scheme } from "./SchemeEntity";
 
 @Entity()
@@ -17,10 +10,12 @@ export class ActionTemplate {
   @Column({ length: 120 })
   name: string;
 
-  @OneToOne(() => Email, (email) => email.action)
-  @JoinColumn()
-  email: Email;
+  @Column({ length: 80 })
+  subject: string;
 
-  @OneToOne(() => Scheme, (scheme) => scheme.actionTemplates)
-  scheme: Scheme;
+  @Column({ length: 1200 })
+  body: string;
+
+  @ManyToMany(() => Scheme, (scheme) => scheme.actionTemplates)
+  schemes: Scheme;
 }

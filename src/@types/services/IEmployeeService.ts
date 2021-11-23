@@ -1,6 +1,5 @@
 import { EmployeeDTO, UpdateEmployeeDTO } from "../dto/EmployeeDto";
 import { Employee } from "../../models/EmployeeEntity";
-import { UpdateResult } from "typeorm";
 
 export interface IEmployeeService {
   create(employeeDto: EmployeeDTO): Promise<Employee>;

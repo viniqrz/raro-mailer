@@ -61,12 +61,12 @@ export class ActionTemplateService implements IActionTemplateService {
   }
 
   private ActionTemplateFactory(
-    ActionTemplateDto: ActionTemplateDTO
+    actionTemplateDto: ActionTemplateDTO
   ): ActionTemplate {
     const actionTemplate = new ActionTemplate();
 
-    Object.keys(ActionTemplateDto).forEach(
-      (key) => (ActionTemplate[key] = ActionTemplateDto[key])
+    Object.keys(actionTemplateDto).forEach(
+      (key) => (actionTemplate[key] = actionTemplateDto[key])
     );
 
     return actionTemplate;

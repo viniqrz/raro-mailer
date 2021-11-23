@@ -17,14 +17,8 @@ export class AddressRepository
     return await this.findOne({ where: { employee: { id } as Employee } });
   }
 
-  public async updateByEmployeeId(
-    id: number,
-    partial: UpdateAddressDTO
-  ): Promise<Address> {
-    return await this.save({
-      ...partial,
-      employee: { id } as Employee,
-    } as Address);
+  public async deleteByEmployeeId(id: number): Promise<Address> {
+    return await this.remove({ employee: { id } as Employee } as Address);
   }
 
   public async findById(id: number): Promise<Address> {

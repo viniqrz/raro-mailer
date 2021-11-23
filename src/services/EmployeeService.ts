@@ -6,6 +6,7 @@ import { IEmployeeService } from "../@types/services/IEmployeeService";
 import { ActorService } from "./ActorService";
 import { Actor } from "../models/ActorEntity";
 import { AddressService } from "./AddressService";
+import { Address } from "../models/AddressEntity";
 
 @Service("EmployeeService")
 export class EmployeeService implements IEmployeeService {
@@ -19,10 +20,12 @@ export class EmployeeService implements IEmployeeService {
       if (!employeeDto.actorId) throw new Error("No actor id provided");
       if (!employeeDto.address) throw new Error("No address provided");
 
+      const addressService = Container.get<AddressService>("AddressService");
+
       const actor = await this.validateActorId(employeeDto.actorId);
+      const address = await addressService.create(employeeDto.address);
 
-      const employee = this.employeeFactory(employeeDto, actor);
-
+      const employee = this.employeeFactory(employeeDto, actor, address);
       const savedEmployee = await this.employeeRepository.save(employee);
 
       return savedEmployee;
@@ -44,8 +47,8 @@ export class EmployeeService implements IEmployeeService {
 
     if ("address" in dto) {
       const addressService = Container.get<AddressService>("AddressService");
-      await addressService.updateByEmployeeId(id, dto.address);
-      delete employee.address;
+      const address = await addressService.updateByEmployeeId(id, dto.address);
+      employee.address = address;
     }
 
     if ("actorId" in dto) {
@@ -56,6 +59,9 @@ export class EmployeeService implements IEmployeeService {
   }
 
   public async delete(id: number) {
+    const addressService = Container.get<AddressService>("AddressService");
+    await addressService.deleteByEmployeeId(id);
+
     return await this.employeeRepository.remove({ id } as Employee);
   }
 
@@ -67,13 +73,18 @@ export class EmployeeService implements IEmployeeService {
     return actor;
   }
 
-  private employeeFactory(employeeDto: EmployeeDTO, actor: Actor): Employee {
+  private employeeFactory(
+    employeeDto: EmployeeDTO,
+    actor: Actor,
+    address: Address
+  ): Employee {
     const employee = new Employee();
 
     Object.keys(employeeDto)
       .filter((key) => key !== "actorId")
       .forEach((key) => (employee[key] = employeeDto[key]));
 
+    employee.address = address;
     employee.actor = actor;
 
     return employee;
