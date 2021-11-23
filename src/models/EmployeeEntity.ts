@@ -34,6 +34,9 @@ export class Employee {
   @Column({ length: 50 })
   department: string;
 
+  @Column()
+  dayOne: Date;
+
   @ManyToOne(() => Actor, (actor) => actor.employees)
   actor: Actor;
 

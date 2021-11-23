@@ -17,6 +17,7 @@ import "../../controllers/ActionTemplateController";
 import "../../controllers/ActorController";
 import "../../controllers/EmployeeController";
 import "../../controllers/SchemeController";
+import "../../controllers/BundleController";
 
 // inicializa services
 import "../../services/UserService";

@@ -8,10 +8,13 @@ export class BundleRepository
   implements IBundleRepository
 {
   public async findAll(): Promise<Bundle[]> {
-    return await this.find();
+    return await this.find({ relations: ["employee", "actions"] });
   }
 
   public async findById(id: number): Promise<Bundle> {
-    return await this.findOne(id);
+    return await this.findOne({
+      where: { id },
+      relations: ["employee", "actions"],
+    });
   }
 }

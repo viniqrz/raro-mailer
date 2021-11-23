@@ -52,9 +52,8 @@ export class SchemeService implements ISchemeService {
 
   public async delete(id: number) {
     const schemeToRemove = await this.schemeRepository.findById(id);
-    if (!schemeToRemove) {
-      throw new Error("Scheme not found!");
-    }
+
+    if (!schemeToRemove) throw new Error("Scheme not found!");
 
     return await this.schemeRepository.remove(schemeToRemove);
   }

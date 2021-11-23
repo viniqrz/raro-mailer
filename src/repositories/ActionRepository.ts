@@ -11,6 +11,10 @@ export class ActionRepository
     return await this.find();
   }
 
+  public async saveMany(actions: Action[]): Promise<Action[]> {
+    return await this.save(actions);
+  }
+
   public async findById(id: number): Promise<Action> {
     return await this.findOne(id);
   }

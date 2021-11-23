@@ -16,6 +16,9 @@ export class ActionTemplate {
   @Column({ length: 1200 })
   body: string;
 
+  @Column()
+  day: number;
+
   @ManyToMany(() => Scheme, (scheme) => scheme.actionTemplates)
   schemes: Scheme;
 }
