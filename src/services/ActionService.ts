@@ -6,7 +6,7 @@ import { IActionService } from "../@types/services/IActionService";
 import { ActionTemplate } from "../models/ActionTemplateEntity";
 import { Actor } from "../models/ActorEntity";
 import { PairTemplateActor } from "../@types/dto/BundleDto";
-import * as dt from "date-and-time";
+import * as dayjs from "dayjs";
 
 @Service("ActionService")
 export class ActionService implements IActionService {
@@ -20,7 +20,7 @@ export class ActionService implements IActionService {
   ): Promise<Action> {
     const { template, actor } = pair;
 
-    const date = dt.addDays(dayOne, template.day);
+    const date = dayjs(dayOne).add(template.day, "day").toDate();
 
     const action = this.actionFactory({ ...template, actor, date });
 

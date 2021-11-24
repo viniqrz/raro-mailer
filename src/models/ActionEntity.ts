@@ -32,6 +32,6 @@ export class Action {
   @Column({ default: true })
   active: boolean;
 
-  @ManyToMany(() => Bundle, (bundle) => bundle.actions)
-  bundles: Bundle[];
+  @ManyToOne(() => Bundle, (bundle) => bundle.actions)
+  bundle: Bundle;
 }

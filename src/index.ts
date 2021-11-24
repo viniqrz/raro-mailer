@@ -1,11 +1,12 @@
 import "reflect-metadata";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
 
-import createApp from './config/app';
+import createApp from "./config/app";
 import createDatabaseConnection from "./config/database/connect";
 import createDependencyInjector from "./config/dependencies/createInjector";
 import createServer from "./infra/server/server";
+import { startRoutine } from "./runners";
 
 export const start = async () => {
   try {
@@ -14,8 +15,9 @@ export const start = async () => {
     const app = createApp();
 
     createServer(app);
+    startRoutine();
   } catch (error) {
-    console.error('Fatal error: ', error);
+    console.error("Fatal error: ", error);
   }
 };
 

@@ -1,27 +1,32 @@
-import * as sgMail from "@sendgrid/mail";
-import * as dotenv from "dotenv";
+import * as nodemailer from "nodemailer";
 
-import { EmailData } from "../@types/dto/EmailDto";
+import { Actor } from "../models/ActorEntity";
+import { Employee } from "../models/EmployeeEntity";
 
-dotenv.config();
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+type EmailDto = {
+  subject: string;
+  body: string;
+};
 
-// SENDGRID TEM UM AGENDAMENTO DE 72H NO MÁXIMO
+export async function sendEmail(email: EmailDto, to: Actor | Employee) {
+  const testAccount = await nodemailer.createTestAccount();
 
-export async function sendEmail(emailData: EmailData, dateUnix: number) {
-  try {
-    const msg = {
-      to: emailData.to,
-      from: process.env.TEST_EMAIL,
-      subject: emailData.subject,
-      html: emailData.body,
-      sendAt: dateUnix, // max 72h in unix timestamp
-    };
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
 
-    await sgMail.send(msg);
+  const info = await transporter.sendMail({
+    from: '"Ramonzinho 👻" <ramonzinho@raro.com>',
+    to: to.email, // list of receivers
+    subject: email.subject, // Subject line
+    html: email.body, // html body
+  });
 
-    console.log("Email sent!");
-  } catch (err) {
-    throw new Error(`Couldn't send email: ${err.message}`);
-  }
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }

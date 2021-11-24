@@ -1,4 +1,4 @@
-import { ActionTemplate } from "models/ActionTemplateEntity";
+import { ActionTemplate } from "../../models/ActionTemplateEntity";
 
 export interface IActionTemplateRepository {
   save(email: ActionTemplate): Promise<ActionTemplate>;

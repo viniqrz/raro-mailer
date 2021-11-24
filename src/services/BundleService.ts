@@ -116,6 +116,8 @@ export class BundleService implements IBundleService {
     const template = await templateService.getById(actionId);
     if (!template) throw new Error("There's no action template with this id");
 
+    if (!actorId) return { template, actor: null };
+
     const actor = await actorService.getById(actorId);
     if (!actor) throw new Error("There's no actor with this id");
 

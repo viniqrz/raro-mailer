@@ -16,4 +16,5 @@ export type UpdateActionDTO = {
   body?: string;
   actor?: Actor;
   date?: Date;
+  active?: boolean;
 };
