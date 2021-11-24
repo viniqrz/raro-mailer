@@ -11,6 +11,8 @@ import * as dayOfYear from "dayjs/plugin/dayOfYear";
 dayjs.extend(dayOfYear);
 
 export async function sendPendingEmails() {
+  console.log("Checking for pending emails...");
+
   const actionService = Container.get<ActionService>("ActionService");
   const bundleService = Container.get<BundleService>("BundleService");
 
@@ -23,6 +25,8 @@ export async function sendPendingEmails() {
     const dayNow = dayjs().dayOfYear();
 
     if (dayAction === dayNow && active) {
+      console.log("Sending...");
+
       let to: Actor | Employee = actor;
 
       if (!actor) to = (await bundleService.getById(a.bundle.id)).employee;

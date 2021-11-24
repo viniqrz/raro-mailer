@@ -3,9 +3,8 @@ import { Inject, Service } from "typedi";
 import { Action } from "../models/ActionEntity";
 import { ActionDTO, UpdateActionDTO } from "../@types/dto/ActionDto";
 import { IActionService } from "../@types/services/IActionService";
-import { ActionTemplate } from "../models/ActionTemplateEntity";
-import { Actor } from "../models/ActorEntity";
 import { PairTemplateActor } from "../@types/dto/BundleDto";
+
 import * as dayjs from "dayjs";
 
 @Service("ActionService")
@@ -22,7 +21,11 @@ export class ActionService implements IActionService {
 
     const date = dayjs(dayOne).add(template.day, "day").toDate();
 
-    const action = this.actionFactory({ ...template, actor, date });
+    const action = this.actionFactory({
+      ...template,
+      actor,
+      date,
+    });
 
     return await this.actionRepository.save(action);
   }
@@ -57,6 +60,8 @@ export class ActionService implements IActionService {
     const action = new Action();
 
     Object.keys(actionDto).forEach((key) => (action[key] = actionDto[key]));
+
+    action.active = true;
 
     return action;
   }
