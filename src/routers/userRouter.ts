@@ -13,6 +13,7 @@ export const createUserRouter = () => {
   const controller = getController();
 
   router.get("", ensureAuth, controller.getAll);
+  // CREATE ROUTE IS NOT PROTECTED BECAUSE OF PRESENTATION
   router.post("", controller.signup);
   router.get("/:id", ensureAuth, controller.getById);
   router.patch("/:id", ensureAuth, controller.update);
