@@ -7,7 +7,7 @@ export type ActionDTO = {
   subject: string;
   body: string;
   date: Date;
-  employee: Employee;
+  actor: Actor;
 };
 
 export type UpdateActionDTO = {
@@ -16,5 +16,5 @@ export type UpdateActionDTO = {
   body?: string;
   actor?: Actor;
   date?: Date;
-  employee?: Employee;
+  active?: boolean;
 };

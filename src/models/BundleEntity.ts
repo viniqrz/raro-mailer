@@ -1,10 +1,4 @@
-import {
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Employee } from "./EmployeeEntity";
 import { Action } from "./ActionEntity";
@@ -17,7 +11,6 @@ export class Bundle {
   @ManyToOne(() => Employee, (employee) => employee.bundle)
   employee: Employee;
 
-  @ManyToMany(() => Action, (action) => action.bundles)
-  @JoinTable()
+  @OneToMany(() => Action, (action) => action.bundle)
   actions: Action[];
 }

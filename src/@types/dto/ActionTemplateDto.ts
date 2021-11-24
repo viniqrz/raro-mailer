@@ -3,10 +3,12 @@ export interface ActionTemplateDTO {
   name: string;
   subject: string;
   body: string;
+  day: number;
 }
 
 export interface UpdateActionTemplateDTO {
   name?: string;
   subject?: string;
   body?: string;
+  day?: number;
 }

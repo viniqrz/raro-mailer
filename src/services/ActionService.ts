@@ -3,6 +3,10 @@ import { Inject, Service } from "typedi";
 import { Action } from "../models/ActionEntity";
 import { ActionDTO, UpdateActionDTO } from "../@types/dto/ActionDto";
 import { IActionService } from "../@types/services/IActionService";
+import { ActionTemplate } from "../models/ActionTemplateEntity";
+import { Actor } from "../models/ActorEntity";
+import { PairTemplateActor } from "../@types/dto/BundleDto";
+import * as dayjs from "dayjs";
 
 @Service("ActionService")
 export class ActionService implements IActionService {
@@ -10,8 +14,15 @@ export class ActionService implements IActionService {
     @Inject("ActionRepository") private actionRepository: IActionRepository
   ) {}
 
-  public async create(actionDto: ActionDTO): Promise<Action> {
-    const action = this.actionFactory(actionDto);
+  public async generateFromTemplate(
+    pair: PairTemplateActor,
+    dayOne: Date
+  ): Promise<Action> {
+    const { template, actor } = pair;
+
+    const date = dayjs(dayOne).add(template.day, "day").toDate();
+
+    const action = this.actionFactory({ ...template, actor, date });
 
     return await this.actionRepository.save(action);
   }
@@ -34,6 +45,12 @@ export class ActionService implements IActionService {
 
   public async delete(id: number): Promise<Action> {
     return await this.actionRepository.remove({ id } as Action);
+  }
+
+  public async deactivate(actions: Action[]): Promise<Action[]> {
+    actions.forEach((a) => (a.active = false));
+
+    return await this.actionRepository.saveMany(actions);
   }
 
   private actionFactory(actionDto: ActionDTO): Action {

@@ -2,7 +2,6 @@ import { Address } from "../models/AddressEntity";
 import { EntityRepository, Repository } from "typeorm";
 import { IAddressRepository } from "../@types/repositories/IAddressRepository";
 import { Employee } from "../models/EmployeeEntity";
-import { UpdateAddressDTO } from "../@types/dto/AddressDto";
 
 @EntityRepository(Address)
 export class AddressRepository

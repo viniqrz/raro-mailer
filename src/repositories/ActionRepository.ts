@@ -8,7 +8,11 @@ export class ActionRepository
   implements IActionRepository
 {
   public async findAll(): Promise<Action[]> {
-    return await this.find();
+    return await this.find({ relations: ["actor", "bundle"] });
+  }
+
+  public async saveMany(actions: Action[]): Promise<Action[]> {
+    return await this.save(actions);
   }
 
   public async findById(id: number): Promise<Action> {

@@ -9,6 +9,7 @@ export interface EmployeeDTO {
   department: string;
   actorId: number;
   address: AddressDTO;
+  dayOne: Date;
 }
 
 export interface UpdateEmployeeDTO {
@@ -20,4 +21,5 @@ export interface UpdateEmployeeDTO {
   department?: string;
   actorId?: number;
   address?: AddressDTO;
+  dayOne: Date;
 }

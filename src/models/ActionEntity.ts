@@ -29,6 +29,9 @@ export class Action {
   @ManyToOne(() => Actor, (actor) => actor.actions)
   actor: Actor;
 
-  @ManyToMany(() => Bundle, (bundle) => bundle.actions)
-  bundles: Bundle[];
+  @Column({ default: true })
+  active: boolean;
+
+  @ManyToOne(() => Bundle, (bundle) => bundle.actions)
+  bundle: Bundle;
 }

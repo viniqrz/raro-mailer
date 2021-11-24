@@ -3,7 +3,6 @@ import { AddressDTO, UpdateAddressDTO } from "../@types/dto/AddressDto";
 import { IAddressRepository } from "../@types/repositories/IAddressRepository";
 import { IAddressService } from "../@types/services/IAddressService";
 import { Address } from "../models/AddressEntity";
-import { Employee } from "../models/EmployeeEntity";
 
 @Service("AddressService")
 export class AddressService implements IAddressService {
