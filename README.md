@@ -11,6 +11,7 @@ Esta Api implementa um Sistema para fácil automação de envio de e-mails.<p>
   * [Requisitos](#requisitos)
   * [Instalação](#instalação)
   * [Pacotes](#pacotes)
+  * [Fluxo](#fluxo)
   * [Contributing](#contributing)
   # Requisitos
   
